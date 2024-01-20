@@ -1,5 +1,5 @@
 //
-//  EventStore.swift
+//  EventStoreWrapper.swift
 //  CalendarExample
 //
 //  Created by admin on 20.01.2024.
@@ -9,7 +9,7 @@ import UIKit
 import EventKit
 import CalendarKit
 
-final class EventStore: EventDescriptor {
+final class EventStoreWrapper: EventDescriptor {
     
     private(set) var event: EKEvent
     
@@ -83,7 +83,7 @@ final class EventStore: EventDescriptor {
 }
 
 //MARK: - Private metods
-private extension EventStore {
+private extension EventStoreWrapper {
     
     private func updateColors() {
       (editedEvent != nil) ? applyEditingColors() : applyStandardColors()
