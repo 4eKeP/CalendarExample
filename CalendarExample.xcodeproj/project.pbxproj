@@ -12,6 +12,8 @@
 		8485B7662B5B888B00AA488A /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485B7652B5B888B00AA488A /* CalendarViewController.swift */; };
 		8485B76B2B5B888D00AA488A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8485B76A2B5B888D00AA488A /* Assets.xcassets */; };
 		8485B76E2B5B888D00AA488A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8485B76C2B5B888D00AA488A /* LaunchScreen.storyboard */; };
+		8485B7772B5B9D7400AA488A /* CalendarKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8485B7762B5B9D7400AA488A /* CalendarKit */; };
+		8485B7792B5B9E7D00AA488A /* EventStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485B7782B5B9E7D00AA488A /* EventStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,7 @@
 		8485B76A2B5B888D00AA488A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8485B76D2B5B888D00AA488A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8485B76F2B5B888D00AA488A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8485B7782B5B9E7D00AA488A /* EventStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8485B7772B5B9D7400AA488A /* CalendarKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,6 +61,7 @@
 				8485B7612B5B888B00AA488A /* AppDelegate.swift */,
 				8485B7632B5B888B00AA488A /* SceneDelegate.swift */,
 				8485B7652B5B888B00AA488A /* CalendarViewController.swift */,
+				8485B7782B5B9E7D00AA488A /* EventStore.swift */,
 				8485B76A2B5B888D00AA488A /* Assets.xcassets */,
 				8485B76C2B5B888D00AA488A /* LaunchScreen.storyboard */,
 				8485B76F2B5B888D00AA488A /* Info.plist */,
@@ -80,6 +85,9 @@
 			dependencies = (
 			);
 			name = CalendarExample;
+			packageProductDependencies = (
+				8485B7762B5B9D7400AA488A /* CalendarKit */,
+			);
 			productName = CalendarExample;
 			productReference = 8485B75E2B5B888B00AA488A /* CalendarExample.app */;
 			productType = "com.apple.product-type.application";
@@ -108,6 +116,9 @@
 				Base,
 			);
 			mainGroup = 8485B7552B5B888B00AA488A;
+			packageReferences = (
+				8485B7752B5B9D7400AA488A /* XCRemoteSwiftPackageReference "CalendarKit" */,
+			);
 			productRefGroup = 8485B75F2B5B888B00AA488A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -136,6 +147,7 @@
 			files = (
 				8485B7662B5B888B00AA488A /* CalendarViewController.swift in Sources */,
 				8485B7622B5B888B00AA488A /* AppDelegate.swift in Sources */,
+				8485B7792B5B9E7D00AA488A /* EventStore.swift in Sources */,
 				8485B7642B5B888B00AA488A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -287,7 +299,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -318,7 +330,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -357,6 +369,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8485B7752B5B9D7400AA488A /* XCRemoteSwiftPackageReference "CalendarKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/richardtop/CalendarKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.9;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8485B7762B5B9D7400AA488A /* CalendarKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8485B7752B5B9D7400AA488A /* XCRemoteSwiftPackageReference "CalendarKit" */;
+			productName = CalendarKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8485B7562B5B888B00AA488A /* Project object */;
 }
