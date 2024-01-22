@@ -9,22 +9,26 @@
 /* Begin PBXBuildFile section */
 		8485B7622B5B888B00AA488A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485B7612B5B888B00AA488A /* AppDelegate.swift */; };
 		8485B7642B5B888B00AA488A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485B7632B5B888B00AA488A /* SceneDelegate.swift */; };
-		8485B7662B5B888B00AA488A /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485B7652B5B888B00AA488A /* CalendarViewController.swift */; };
+		8485B7662B5B888B00AA488A /* DetailedDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485B7652B5B888B00AA488A /* DetailedDayViewController.swift */; };
 		8485B76B2B5B888D00AA488A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8485B76A2B5B888D00AA488A /* Assets.xcassets */; };
 		8485B76E2B5B888D00AA488A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8485B76C2B5B888D00AA488A /* LaunchScreen.storyboard */; };
 		8485B7772B5B9D7400AA488A /* CalendarKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8485B7762B5B9D7400AA488A /* CalendarKit */; };
 		8485B7792B5B9E7D00AA488A /* EventStoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485B7782B5B9E7D00AA488A /* EventStoreWrapper.swift */; };
+		8485B77B2B5EBEA600AA488A /* MonthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485B77A2B5EBEA600AA488A /* MonthViewController.swift */; };
+		8485B77D2B5EC64000AA488A /* EventsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485B77C2B5EC64000AA488A /* EventsStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		8485B75E2B5B888B00AA488A /* CalendarExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalendarExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8485B7612B5B888B00AA488A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8485B7632B5B888B00AA488A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		8485B7652B5B888B00AA488A /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		8485B7652B5B888B00AA488A /* DetailedDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedDayViewController.swift; sourceTree = "<group>"; };
 		8485B76A2B5B888D00AA488A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8485B76D2B5B888D00AA488A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8485B76F2B5B888D00AA488A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8485B7782B5B9E7D00AA488A /* EventStoreWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStoreWrapper.swift; sourceTree = "<group>"; };
+		8485B77A2B5EBEA600AA488A /* MonthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthViewController.swift; sourceTree = "<group>"; };
+		8485B77C2B5EC64000AA488A /* EventsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +64,9 @@
 			children = (
 				8485B7612B5B888B00AA488A /* AppDelegate.swift */,
 				8485B7632B5B888B00AA488A /* SceneDelegate.swift */,
-				8485B7652B5B888B00AA488A /* CalendarViewController.swift */,
+				8485B7652B5B888B00AA488A /* DetailedDayViewController.swift */,
+				8485B77A2B5EBEA600AA488A /* MonthViewController.swift */,
+				8485B77C2B5EC64000AA488A /* EventsStore.swift */,
 				8485B7782B5B9E7D00AA488A /* EventStoreWrapper.swift */,
 				8485B76A2B5B888D00AA488A /* Assets.xcassets */,
 				8485B76C2B5B888D00AA488A /* LaunchScreen.storyboard */,
@@ -145,8 +151,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8485B7662B5B888B00AA488A /* CalendarViewController.swift in Sources */,
+				8485B77D2B5EC64000AA488A /* EventsStore.swift in Sources */,
+				8485B7662B5B888B00AA488A /* DetailedDayViewController.swift in Sources */,
 				8485B7622B5B888B00AA488A /* AppDelegate.swift in Sources */,
+				8485B77B2B5EBEA600AA488A /* MonthViewController.swift in Sources */,
 				8485B7792B5B9E7D00AA488A /* EventStoreWrapper.swift in Sources */,
 				8485B7642B5B888B00AA488A /* SceneDelegate.swift in Sources */,
 			);

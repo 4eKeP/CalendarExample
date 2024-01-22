@@ -10,7 +10,7 @@ import CalendarKit
 import EventKit
 import EventKitUI
 
-final class CalendarViewController: DayViewController {
+final class DetailedDayViewController: DayViewController {
 
     private var eventStore = EKEventStore()
     
@@ -144,7 +144,7 @@ final class CalendarViewController: DayViewController {
 
 //MARK: - Access request to Events
 
-private extension CalendarViewController {
+private extension DetailedDayViewController {
     
     func requestAccessToCalendar() {
         let complitionHandler: EKEventStoreRequestAccessCompletionHandler = {
@@ -184,7 +184,7 @@ private extension CalendarViewController {
 
 //MARK: - EKEventEditViewDelegate
 
-extension CalendarViewController: EKEventEditViewDelegate {
+extension DetailedDayViewController: EKEventEditViewDelegate {
     func eventEditViewController(_ controller: EKEventEditViewController, didCompleteWith action: EKEventEditViewAction) {
         endEventEditing()
         reloadData()
