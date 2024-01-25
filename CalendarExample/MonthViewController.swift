@@ -21,6 +21,7 @@ final class MonthViewController: UIViewController {
         calendarView.selectionBehavior = dateSelection
         calendarView.calendar = .current
         calendarView.translatesAutoresizingMaskIntoConstraints = false
+        calendarView.overrideUserInterfaceStyle = .light
         calendarView.locale = .current
         calendarView.fontDesign = .rounded
         return calendarView
@@ -29,11 +30,51 @@ final class MonthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        requestAccessToCalendar()
         calendarView.delegate = self
         view.backgroundColor = .white
-        
+        subscribeToNotifications()
         setupUI()
     }
+    
+    func requestAccessToCalendar() {
+        let complitionHandler: EKEventStoreRequestAccessCompletionHandler = {
+            [weak self] granted, error in
+            // почему то complition handler не запускаеться на главном потоке автоматически
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                self.initializeStore()
+                //self.reloadInputViews()
+                self.subscribeToNotifications()
+            
+            }
+        }
+        
+//        if #available(iOS 17.0, *) {
+//            eventStore.requestFullAccessToEvents(completion: complitionHandler)
+//        } else {
+            eventStore.requestAccess(to: .event, completion: complitionHandler)
+      //  }
+    }
+    
+    func initializeStore() {
+        eventStore = EKEventStore()
+    }
+    
+    func subscribeToNotifications() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(storeChanged(_:)),
+                                               name: .EKEventStoreChanged,
+                                               object: eventStore)
+    }
+    
+    @objc func storeChanged(_ notification: Notification) {
+//        let start = calendarView.availableDateRange.start
+//        let end = calendarView.availableDateRange.end
+//        let dateComponets = Calendar.autoupdatingCurrent.dateComponents(Set<Calendar.Component>(), from: start, to: end)
+//        calendarView.reloadDecorations(forDateComponents: dateComponets, animated: true)
+    }
+    
 }
 
 //MARK: - UI config

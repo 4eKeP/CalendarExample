@@ -46,6 +46,8 @@ final class DateBase {
         return !eventKitEvents.isEmpty ? true : false
     }
     
+    
+    
     private func eventStatus(date: DateComponents) -> EventType {
         if eventsAt(date: date) {
             return EventType.event
