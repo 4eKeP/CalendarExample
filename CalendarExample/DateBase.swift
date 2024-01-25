@@ -15,17 +15,11 @@ final class DateBase {
         case event, none
     }
     
+    private var selectedDate = Date()
+    
     public static let shared = DateBase()
     
     private var eventStore = EKEventStore()
-    
-    private let events: [DateComponents] = [
-        DateComponents(calendar: .current, year: 2024, month: 1, day: 22),
-        DateComponents(calendar: .current, year: 2024, month: 1, day: 23),
-        DateComponents(calendar: .current, year: 2024, month: 1, day: 24),
-        DateComponents(calendar: .current, year: 2024, month: 1, day: 25),
-    ]
-    
     
     func eventsAt(date: DateComponents) -> Bool {
         let calendar = Calendar.autoupdatingCurrent
@@ -42,7 +36,6 @@ final class DateBase {
             assertionFailure("failed to get endDate")
             return false
         }
-     //   calendar.date(byAdding: oneDayComponents, to: startDate)!
         
         let predicate = eventStore.predicateForEvents(withStart: startDate,
                                                   end: endDate,
@@ -69,6 +62,14 @@ final class DateBase {
         case .none:
             return nil
         }
+    }
+    
+    func selectedDate(date: Date) {
+        selectedDate = date
+    }
+    
+    func getSelectedDate() -> Date {
+        selectedDate
     }
     
 }

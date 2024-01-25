@@ -14,6 +14,8 @@ final class DetailedDayViewController: DayViewController {
 
     private var eventStore = EKEventStore()
     
+    private let dateBase = DateBase.shared
+    
     private let calendarTitle = "Calendar"
     
     private let newEventTitle = "New event"
@@ -33,6 +35,7 @@ final class DetailedDayViewController: DayViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setToolbarHidden(true, animated: false)
+        move(to: dateBase.getSelectedDate())
     }
     
     
@@ -52,6 +55,7 @@ final class DetailedDayViewController: DayViewController {
                                                   calendars: nil) // ищет во всех календарях
         
         let eventKitEvents = eventStore.events(matching: predicate)
+        
         
         let calendarKitEvents = eventKitEvents.map(EventStoreWrapper.init)
         

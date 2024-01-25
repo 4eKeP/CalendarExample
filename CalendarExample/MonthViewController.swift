@@ -46,24 +46,29 @@ private extension MonthViewController {
     }
     
     func addConstraints() {
-        
         NSLayoutConstraint.activate([
             calendarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             calendarView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             calendarView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            calendarView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            calendarView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -250)
         ])
-        
-        
-        
     }
     
-    func dateIsSelected() {
+    func dateIsSelected(withDate date: Date) {
         let nextController = DetailedDayViewController()
-        present(nextController, animated: true)
+        let navigationController = UINavigationController(rootViewController: nextController)
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.shadowColor = nil
+        
+        let navigationBar = navigationController.navigationBar
+        navigationBar.standardAppearance = appearance
+        navigationBar.scrollEdgeAppearance = appearance
+        dateBase.selectedDate(date: date)
+        nextController.modalPresentationStyle = .fullScreen
+        present(navigationController, animated: true)
     }
-    
-    
 }
 
 //MARK: - UICalendarViewDelegate, UICalendarSelectionSingleDateDelegate
@@ -74,7 +79,10 @@ extension MonthViewController: UICalendarViewDelegate, UICalendarSelectionSingle
     }
     
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
-        dateIsSelected()
+        guard let dateComponents = dateComponents else { return assertionFailure("failed to get dateComponents") }
+        guard let date = Calendar.autoupdatingCurrent.date(from: dateComponents) else { return assertionFailure("failed to get date from dateComponents") }
+        dateIsSelected(withDate: date)
     }
+    
 }
 
