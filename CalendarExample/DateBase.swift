@@ -17,6 +17,8 @@ final class DateBase {
     
     private var selectedDate = Date()
     
+    private var datesToUpdate = Set<DateComponents>()
+    
     public static let shared = DateBase()
     
     private var eventStore = EKEventStore()
@@ -72,6 +74,26 @@ final class DateBase {
     
     func getSelectedDate() -> Date {
         selectedDate
+    }
+    
+    func addDateToUpdate(date: Date) {
+        let dateComponentsFromDate = Calendar.autoupdatingCurrent.dateComponents([.year, .month, .day], from: date)
+        datesToUpdate.insert(dateComponentsFromDate)
+        print("set of dates \(datesToUpdate)")
+    }
+    
+    func getDatesToUpdate() -> [DateComponents] {
+        let arrayOfDates = Array(datesToUpdate)
+        print("array dates was called \(arrayOfDates)")
+        return arrayOfDates
+    }
+    
+    func cancelButtonPressed() {
+        
+    }
+    
+    func deleteDatesToUpdate() {
+        datesToUpdate.removeAll()
     }
     
 }

@@ -10,7 +10,13 @@ import CalendarKit
 import EventKit
 import EventKitUI
 
+protocol DetailedDayViewControllerDelegate: AnyObject {
+    func detailedDayViewController(_ viewController: DetailedDayViewController, withDates dateComponets: [DateComponents])
+}
+
 final class DetailedDayViewController: DayViewController {
+    
+    private var datesToUpdate = Set<DateComponents>()
 
     private var eventStore = EKEventStore()
     
@@ -20,12 +26,15 @@ final class DetailedDayViewController: DayViewController {
     
     private let newEventTitle = "New event"
     
+    weak var detailDelegate: DetailedDayViewControllerDelegate?
+    
     
     //MARK: - viewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = calendarTitle
+        
+        setupUI()
         
         requestAccessToCalendar()
         
@@ -34,8 +43,20 @@ final class DetailedDayViewController: DayViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setToolbarHidden(true, animated: false)
+      //  navigationController?.setToolbarHidden(true, animated: false)
         move(to: dateBase.getSelectedDate())
+    }
+    
+    @objc func cancelButtonPressed() {
+        
+//        var arrayOfDateComponents: [DateComponents] = []
+//        let arrayOfDates = Array(datesToUpdate)
+//        arrayOfDates.forEach { date in
+//            arrayOfDateComponents.append(Calendar.autoupdatingCurrent.dateComponents([.year, .month, .day], from: date))
+//        }
+        detailDelegate?.detailedDayViewController(self, withDates: Array(datesToUpdate))
+        
+        dismiss(animated: true)
     }
     
     
@@ -65,46 +86,24 @@ final class DetailedDayViewController: DayViewController {
         
     //MARK: - DayViewDelegate
     
-    //MARK: - Event selection
-    
-    override func dayViewDidSelectEventView(_ eventView: EventView) {
-        guard let ckEvent = eventView.descriptor as? EventStoreWrapper else {
-            return
-        }
-        presentDetailViewForEvent(ckEvent.event)
+    override func dayView(dayView: DayView, didTapTimelineAt date: Date) {
+        endEventEditing()
+        
+      //  datesToUpdate.insert(Calendar.autoupdatingCurrent.dateComponents([.year, .month, .day], from: date))
+        
+        dateBase.addDateToUpdate(date: date)
+        print(dateBase.getDatesToUpdate())
     }
     
-    private func presentDetailViewForEvent(_ ekEvent: EKEvent) {
-        let eventController = EKEventViewController()
-        eventController.event = ekEvent
-        eventController.allowsCalendarPreview = true
-        eventController.allowsEditing  = true
-        navigationController?.pushViewController(eventController, animated: true)
+    override func dayViewDidBeginDragging(dayView: DayView) {
+        endEventEditing()
     }
     
-    //MARK: - Event editing
-
     override func dayView(dayView: DayView, didLongPressTimelineAt date: Date) {
         endEventEditing()
+        dateBase.addDateToUpdate(date: date)
         let newEventStoreWrapper = createNewEvent(at: date)
         create(event: newEventStoreWrapper, animated: true)
-    }
-    
-    private func createNewEvent(at date: Date) -> EventStoreWrapper {
-        let newEvent = EKEvent(eventStore: eventStore)
-        newEvent.calendar = eventStore.defaultCalendarForNewEvents
-        
-        var components = DateComponents()
-        components.hour = 1
-        let endDate = calendar.date(byAdding: components, to: date)
-        
-        newEvent.startDate = date
-        newEvent.endDate = endDate
-        newEvent.title = newEventTitle
-        
-        let newESWrapepr = EventStoreWrapper(EKEvent: newEvent)
-        newESWrapepr.editedEvent = newESWrapepr
-        return newESWrapepr
     }
     
     override func dayViewDidLongPressEventView(_ eventView: EventView) {
@@ -129,6 +128,45 @@ final class DetailedDayViewController: DayViewController {
         reloadData()
     }
     
+    //MARK: - Event selection
+    
+    override func dayViewDidSelectEventView(_ eventView: EventView) {
+        guard let ckEvent = eventView.descriptor as? EventStoreWrapper else {
+            return
+        }
+        presentDetailViewForEvent(ckEvent.event)
+    }
+    
+    private func presentDetailViewForEvent(_ ekEvent: EKEvent) {
+        let eventController = EKEventViewController()
+        eventController.event = ekEvent
+        eventController.allowsCalendarPreview = true
+        eventController.allowsEditing  = true
+        dateBase.addDateToUpdate(date: ekEvent.startDate)
+        navigationController?.pushViewController(eventController, animated: true)
+    }
+    
+    //MARK: - Event editing
+
+    
+    private func createNewEvent(at date: Date) -> EventStoreWrapper {
+        let newEvent = EKEvent(eventStore: eventStore)
+        newEvent.calendar = eventStore.defaultCalendarForNewEvents
+        
+        var components = DateComponents()
+        components.hour = 1
+        let endDate = calendar.date(byAdding: components, to: date)
+        
+        newEvent.startDate = date
+        newEvent.endDate = endDate
+        newEvent.title = newEventTitle
+        
+        let newESWrapepr = EventStoreWrapper(EKEvent: newEvent)
+        newESWrapepr.editedEvent = newESWrapepr
+        return newESWrapepr
+    }
+    
+    
     private func presentEditingViewForEvent(_ ekEvent: EKEvent) {
         let eventEditViewController = EKEventEditViewController()
         eventEditViewController.event = ekEvent
@@ -137,13 +175,6 @@ final class DetailedDayViewController: DayViewController {
         present(eventEditViewController, animated: true)
     }
     
-    override func dayView(dayView: DayView, didTapTimelineAt date: Date) {
-        endEventEditing()
-    }
-    
-    override func dayViewDidBeginDragging(dayView: DayView) {
-        endEventEditing()
-    }
 }
 
 //MARK: - Access request to Events
@@ -194,5 +225,25 @@ extension DetailedDayViewController: EKEventEditViewDelegate {
         reloadData()
         controller.dismiss(animated: true)
     }
+    
+    
+}
+
+//MARK: - UI Config
+
+private extension DetailedDayViewController {
+    
+    func setupUI(){
+        configNavBar()
+    }
+    
+    func configNavBar() {
+        title = calendarTitle
+        
+        let backButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonPressed))
+        
+        self.navigationItem.leftBarButtonItem = backButton
+    }
+    
 }
 

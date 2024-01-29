@@ -15,6 +15,7 @@ final class MonthViewController: UIViewController {
     private let dateBase = DateBase.shared
     private var eventStore = EKEventStore()
     
+    
     private lazy var calendarView = {
         let calendarView = UICalendarView()
         let dateSelection = UICalendarSelectionSingleDate(delegate: self)
@@ -35,6 +36,7 @@ final class MonthViewController: UIViewController {
         view.backgroundColor = .white
         subscribeToNotifications()
         setupUI()
+        
     }
     
     func requestAccessToCalendar() {
@@ -50,11 +52,11 @@ final class MonthViewController: UIViewController {
             }
         }
         
-//        if #available(iOS 17.0, *) {
-//            eventStore.requestFullAccessToEvents(completion: complitionHandler)
-//        } else {
+        if #available(iOS 17.0, *) {
+            eventStore.requestFullAccessToEvents(completion: complitionHandler)
+        } else {
             eventStore.requestAccess(to: .event, completion: complitionHandler)
-      //  }
+        }
     }
     
     func initializeStore() {
@@ -69,12 +71,12 @@ final class MonthViewController: UIViewController {
     }
     
     @objc func storeChanged(_ notification: Notification) {
-//        let start = calendarView.availableDateRange.start
-//        let end = calendarView.availableDateRange.end
-//        let dateComponets = Calendar.autoupdatingCurrent.dateComponents(Set<Calendar.Component>(), from: start, to: end)
-//        calendarView.reloadDecorations(forDateComponents: dateComponets, animated: true)
+        calendarView.reloadDecorations(forDateComponents: dateBase.getDatesToUpdate(), animated: true)
     }
     
+    @objc func refreshDecorations() {
+        calendarView.reloadDecorations(forDateComponents: dateBase.getDatesToUpdate(), animated: true)
+    }
 }
 
 //MARK: - UI config
@@ -84,6 +86,9 @@ private extension MonthViewController {
     func setupUI() {
         view.addSubview(calendarView)
         addConstraints()
+        
+        let updateButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshDecorations))
+        navigationItem.rightBarButtonItem = updateButton
     }
     
     func addConstraints() {
@@ -107,7 +112,8 @@ private extension MonthViewController {
         navigationBar.standardAppearance = appearance
         navigationBar.scrollEdgeAppearance = appearance
         dateBase.selectedDate(date: date)
-        nextController.modalPresentationStyle = .fullScreen
+        navigationController.modalPresentationStyle = .fullScreen
+        dateBase.deleteDatesToUpdate()
         present(navigationController, animated: true)
     }
 }
@@ -126,4 +132,13 @@ extension MonthViewController: UICalendarViewDelegate, UICalendarSelectionSingle
     }
     
 }
+
+//extension MonthViewController: DetailedDayViewControllerDelegate {
+//    func detailedDayViewController(_ viewController: DetailedDayViewController, withDates dateComponets: [DateComponents]) {
+//        print("DetailDelegate called with DateComponents \(dateComponets)")
+//        calendarView.reloadDecorations(forDateComponents: dateComponets, animated: true)
+//    }
+    
+    
+//}
 
