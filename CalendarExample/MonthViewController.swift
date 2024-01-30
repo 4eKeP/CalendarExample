@@ -131,14 +131,11 @@ extension MonthViewController: UICalendarViewDelegate, UICalendarSelectionSingle
         dateIsSelected(withDate: date)
     }
     
+    func dateSelection(_ selection: UICalendarSelectionSingleDate, canSelectDate dateComponents: DateComponents?) -> Bool {
+        selection.selectedDate = nil
+        return true
+    }
+    
 }
 
-//extension MonthViewController: DetailedDayViewControllerDelegate {
-//    func detailedDayViewController(_ viewController: DetailedDayViewController, withDates dateComponets: [DateComponents]) {
-//        print("DetailDelegate called with DateComponents \(dateComponets)")
-//        calendarView.reloadDecorations(forDateComponents: dateComponets, animated: true)
-//    }
-    
-    
-//}
 

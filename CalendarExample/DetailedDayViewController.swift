@@ -142,6 +142,7 @@ final class DetailedDayViewController: DayViewController {
         eventController.event = ekEvent
         eventController.allowsCalendarPreview = true
         eventController.allowsEditing  = true
+        eventController.delegate = self
         dateBase.addDateToUpdate(date: ekEvent.startDate)
         navigationController?.pushViewController(eventController, animated: true)
     }
@@ -168,10 +169,12 @@ final class DetailedDayViewController: DayViewController {
     
     
     private func presentEditingViewForEvent(_ ekEvent: EKEvent) {
+        print("pfltqcndjdfy push")
         let eventEditViewController = EKEventEditViewController()
         eventEditViewController.event = ekEvent
         eventEditViewController.eventStore = eventStore
         eventEditViewController.editViewDelegate = self
+        
         present(eventEditViewController, animated: true)
     }
     
@@ -225,8 +228,14 @@ extension DetailedDayViewController: EKEventEditViewDelegate {
         reloadData()
         controller.dismiss(animated: true)
     }
-    
-    
+}
+
+extension DetailedDayViewController: EKEventViewDelegate {
+    func eventViewController(_ controller: EKEventViewController, didCompleteWith action: EKEventViewAction) {
+        endEventEditing()
+        reloadData()
+        dismiss(animated: true)
+    }
 }
 
 //MARK: - UI Config
