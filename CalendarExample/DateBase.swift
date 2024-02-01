@@ -9,6 +9,10 @@ import Foundation
 import EventKit
 import EventKitUI
 
+protocol DateBaseDelegate: AnyObject {
+    func dateBaseUpdate(datesToUpdate: Set<DateComponents>)
+}
+
 final class DateBase {
     
     enum EventType {
@@ -17,7 +21,15 @@ final class DateBase {
     
     private var selectedDate = Date()
     
-    private var datesToUpdate = Set<DateComponents>()
+    weak var delegate: DateBaseDelegate?
+    
+    var OnChange: (()->Void)?
+    
+    private var datesToUpdate = Set<DateComponents>() {
+        didSet {
+            delegate?.dateBaseUpdate(datesToUpdate: datesToUpdate)
+        }
+    }
     
     public static let shared = DateBase()
     

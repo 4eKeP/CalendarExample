@@ -11,7 +11,7 @@ import EventKit
 import EventKitUI
 
 protocol DetailedDayViewControllerDelegate: AnyObject {
-    func detailedDayViewController(_ viewController: DetailedDayViewController, withDates dateComponets: [DateComponents])
+    func detailedDayViewController()
 }
 
 final class DetailedDayViewController: DayViewController {
@@ -26,7 +26,19 @@ final class DetailedDayViewController: DayViewController {
     
     private let newEventTitle = "New event"
     
+    private var viewModel: DetailDayViewModelProtocol
+    
     weak var detailDelegate: DetailedDayViewControllerDelegate?
+    
+    
+    init(viewModel: DetailDayViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     
     //MARK: - viewDidLoad
@@ -54,7 +66,8 @@ final class DetailedDayViewController: DayViewController {
 //        arrayOfDates.forEach { date in
 //            arrayOfDateComponents.append(Calendar.autoupdatingCurrent.dateComponents([.year, .month, .day], from: date))
 //        }
-        detailDelegate?.detailedDayViewController(self, withDates: Array(datesToUpdate))
+        viewModel.cancelButtonPress()
+   //     detailDelegate?.detailedDayViewController(self, withDates: Array(datesToUpdate))
         
         dismiss(animated: true)
     }
@@ -235,6 +248,7 @@ extension DetailedDayViewController: EKEventViewDelegate {
         endEventEditing()
         reloadData()
         dismiss(animated: true)
+        viewModel.cancelButtonPress()
     }
 }
 

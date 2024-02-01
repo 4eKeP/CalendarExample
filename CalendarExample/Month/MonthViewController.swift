@@ -6,15 +6,13 @@
 //
 
 import UIKit
-import EventKit
+
 import EventKitUI
 
 
 final class MonthViewController: UIViewController {
     
-    private let dateBase = DateBase.shared
-    private var eventStore = EKEventStore()
-    
+    private var viewModel: MonthViewModelProtocol
     
     private lazy var calendarView = {
         let calendarView = UICalendarView()
@@ -22,60 +20,49 @@ final class MonthViewController: UIViewController {
         calendarView.selectionBehavior = dateSelection
         calendarView.calendar = .current
         calendarView.translatesAutoresizingMaskIntoConstraints = false
-        calendarView.overrideUserInterfaceStyle = .light
-        calendarView.locale = .current
+        calendarView.locale = .autoupdatingCurrent
         calendarView.fontDesign = .rounded
         return calendarView
     }()
     
+    init(viewModel: MonthViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        requestAccessToCalendar()
+        viewModel.requestAccessToCalendar()
         calendarView.delegate = self
-        view.backgroundColor = .white
-        subscribeToNotifications()
+        view.backgroundColor = .clear
         setupUI()
-        
     }
     
-    func requestAccessToCalendar() {
-        let complitionHandler: EKEventStoreRequestAccessCompletionHandler = {
-            [weak self] granted, error in
-            // почему то complition handler не запускаеться на главном потоке автоматически
-            DispatchQueue.main.async {
-                guard let self = self else { return }
-                self.initializeStore()
-                //self.reloadInputViews()
-                self.subscribeToNotifications()
-            
-            }
-        }
-        
-        if #available(iOS 17.0, *) {
-            eventStore.requestFullAccessToEvents(completion: complitionHandler)
-        } else {
-            eventStore.requestAccess(to: .event, completion: complitionHandler)
-        }
+    override func viewDidLayoutSubviews() {
+        switch view.window?.windowScene?.screen.traitCollection.userInterfaceStyle {
+                case .light:
+                    calendarView.overrideUserInterfaceStyle = .light
+                    view.backgroundColor = .white
+                case .dark:
+                    calendarView.overrideUserInterfaceStyle = .dark
+                    view.backgroundColor = .black
+                case .unspecified:
+                    calendarView.overrideUserInterfaceStyle = .light
+                    view.backgroundColor = .white
+                case .none:
+                    calendarView.overrideUserInterfaceStyle = .light
+                    view.backgroundColor = .white
+                @unknown default:
+                    assertionFailure("Неизвесный стиль интерфейса")
+                }
     }
     
-    func initializeStore() {
-        eventStore = EKEventStore()
-    }
-    
-    func subscribeToNotifications() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(storeChanged(_:)),
-                                               name: .EKEventStoreChanged,
-                                               object: eventStore)
-    }
-    
-    @objc func storeChanged(_ notification: Notification) {
-        calendarView.reloadDecorations(forDateComponents: dateBase.getDatesToUpdate(), animated: true)
-    }
-    
-    @objc func refreshDecorations() {
-        calendarView.reloadDecorations(forDateComponents: dateBase.getDatesToUpdate(), animated: true)
+    func updateDecorations() {
+        calendarView.reloadDecorations(forDateComponents: viewModel.getDatesToUpdate(), animated: true)
     }
 }
 
@@ -86,9 +73,6 @@ private extension MonthViewController {
     func setupUI() {
         view.addSubview(calendarView)
         addConstraints()
-        
-        let updateButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshDecorations))
-        navigationItem.rightBarButtonItem = updateButton
     }
     
     func addConstraints() {
@@ -101,7 +85,9 @@ private extension MonthViewController {
     }
     
     func dateIsSelected(withDate date: Date) {
-        let nextController = DetailedDayViewController()
+        let viewModel = DetailDayViewModel()
+        let nextController = DetailedDayViewController(viewModel: viewModel)
+        viewModel.delegate = self
         let navigationController = UINavigationController(rootViewController: nextController)
         
         let appearance = UINavigationBarAppearance()
@@ -111,9 +97,9 @@ private extension MonthViewController {
         let navigationBar = navigationController.navigationBar
         navigationBar.standardAppearance = appearance
         navigationBar.scrollEdgeAppearance = appearance
-        dateBase.selectedDate(date: date)
+        self.viewModel.selectedDate(date: date)
         navigationController.modalPresentationStyle = .fullScreen
-        dateBase.deleteDatesToUpdate()
+        self.viewModel.deleteDatesToUpdate()
         present(navigationController, animated: true)
     }
 }
@@ -122,7 +108,7 @@ private extension MonthViewController {
 
 extension MonthViewController: UICalendarViewDelegate, UICalendarSelectionSingleDateDelegate {
     func calendarView(_ calendarView: UICalendarView, decorationFor dateComponents: DateComponents) -> UICalendarView.Decoration? {
-        return dateBase.eventOnCalendar(date: dateComponents)
+        return viewModel.eventOnCalendar(date: dateComponents)
     }
     
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
@@ -136,6 +122,12 @@ extension MonthViewController: UICalendarViewDelegate, UICalendarSelectionSingle
         return true
     }
     
+}
+
+extension MonthViewController: DetailedDayViewControllerDelegate {
+    func detailedDayViewController() {
+        updateDecorations()
+    }
 }
 
 

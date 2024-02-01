@@ -16,7 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowsScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowsScene)
         
-        let rootVC = MonthViewController()
+        let rootVC = MonthViewController(viewModel: MonthViewModel())
+        //MonthViewController()
         //DetailedDayViewController()
         let navigationController = UINavigationController(rootViewController: rootVC)
         

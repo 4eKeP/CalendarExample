@@ -16,6 +16,9 @@
 		8485B7792B5B9E7D00AA488A /* EventStoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485B7782B5B9E7D00AA488A /* EventStoreWrapper.swift */; };
 		8485B77B2B5EBEA600AA488A /* MonthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485B77A2B5EBEA600AA488A /* MonthViewController.swift */; };
 		8485B77D2B5EC64000AA488A /* DateBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485B77C2B5EC64000AA488A /* DateBase.swift */; };
+		84DBEDB62B6A957200D18BA7 /* OnBoardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBEDB52B6A957200D18BA7 /* OnBoardingController.swift */; };
+		84DBEDBD2B6AA2F600D18BA7 /* MonthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBEDBC2B6AA2F600D18BA7 /* MonthViewModel.swift */; };
+		84DBEDBF2B6BF6C100D18BA7 /* DetailDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBEDBE2B6BF6C100D18BA7 /* DetailDayViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +32,10 @@
 		8485B7782B5B9E7D00AA488A /* EventStoreWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStoreWrapper.swift; sourceTree = "<group>"; };
 		8485B77A2B5EBEA600AA488A /* MonthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthViewController.swift; sourceTree = "<group>"; };
 		8485B77C2B5EC64000AA488A /* DateBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateBase.swift; sourceTree = "<group>"; };
+		84DBEDB52B6A957200D18BA7 /* OnBoardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingController.swift; sourceTree = "<group>"; };
+		84DBEDB92B6AA18900D18BA7 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		84DBEDBC2B6AA2F600D18BA7 /* MonthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthViewModel.swift; sourceTree = "<group>"; };
+		84DBEDBE2B6BF6C100D18BA7 /* DetailDayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDayViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,8 +71,9 @@
 			children = (
 				8485B7612B5B888B00AA488A /* AppDelegate.swift */,
 				8485B7632B5B888B00AA488A /* SceneDelegate.swift */,
-				8485B7652B5B888B00AA488A /* DetailedDayViewController.swift */,
-				8485B77A2B5EBEA600AA488A /* MonthViewController.swift */,
+				84DBEDBB2B6AA1E400D18BA7 /* Day */,
+				84DBEDBA2B6AA1CD00D18BA7 /* Month */,
+				84DBEDB52B6A957200D18BA7 /* OnBoardingController.swift */,
 				8485B77C2B5EC64000AA488A /* DateBase.swift */,
 				8485B7782B5B9E7D00AA488A /* EventStoreWrapper.swift */,
 				8485B76A2B5B888D00AA488A /* Assets.xcassets */,
@@ -73,6 +81,24 @@
 				8485B76F2B5B888D00AA488A /* Info.plist */,
 			);
 			path = CalendarExample;
+			sourceTree = "<group>";
+		};
+		84DBEDBA2B6AA1CD00D18BA7 /* Month */ = {
+			isa = PBXGroup;
+			children = (
+				8485B77A2B5EBEA600AA488A /* MonthViewController.swift */,
+				84DBEDBC2B6AA2F600D18BA7 /* MonthViewModel.swift */,
+			);
+			path = Month;
+			sourceTree = "<group>";
+		};
+		84DBEDBB2B6AA1E400D18BA7 /* Day */ = {
+			isa = PBXGroup;
+			children = (
+				8485B7652B5B888B00AA488A /* DetailedDayViewController.swift */,
+				84DBEDBE2B6BF6C100D18BA7 /* DetailDayViewModel.swift */,
+			);
+			path = Day;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -115,11 +141,12 @@
 			};
 			buildConfigurationList = 8485B7592B5B888B00AA488A /* Build configuration list for PBXProject "CalendarExample" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ru;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 8485B7552B5B888B00AA488A;
 			packageReferences = (
@@ -152,10 +179,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8485B77D2B5EC64000AA488A /* DateBase.swift in Sources */,
+				84DBEDBD2B6AA2F600D18BA7 /* MonthViewModel.swift in Sources */,
 				8485B7662B5B888B00AA488A /* DetailedDayViewController.swift in Sources */,
 				8485B7622B5B888B00AA488A /* AppDelegate.swift in Sources */,
+				84DBEDB62B6A957200D18BA7 /* OnBoardingController.swift in Sources */,
 				8485B77B2B5EBEA600AA488A /* MonthViewController.swift in Sources */,
 				8485B7792B5B9E7D00AA488A /* EventStoreWrapper.swift in Sources */,
+				84DBEDBF2B6BF6C100D18BA7 /* DetailDayViewModel.swift in Sources */,
 				8485B7642B5B888B00AA488A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -167,6 +197,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				8485B76D2B5B888D00AA488A /* Base */,
+				84DBEDB92B6AA18900D18BA7 /* ru */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -179,6 +210,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -242,6 +274,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -303,6 +336,7 @@
 				DEVELOPMENT_TEAM = VHDFTCABKC;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CalendarExample/Info.plist;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "The app needs calendar permission in order to display and edit events";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -334,6 +368,7 @@
 				DEVELOPMENT_TEAM = VHDFTCABKC;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CalendarExample/Info.plist;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "The app needs calendar permission in order to display and edit events";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
