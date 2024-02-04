@@ -19,6 +19,8 @@
 		84DBEDB62B6A957200D18BA7 /* OnBoardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBEDB52B6A957200D18BA7 /* OnBoardingController.swift */; };
 		84DBEDBD2B6AA2F600D18BA7 /* MonthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBEDBC2B6AA2F600D18BA7 /* MonthViewModel.swift */; };
 		84DBEDBF2B6BF6C100D18BA7 /* DetailDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBEDBE2B6BF6C100D18BA7 /* DetailDayViewModel.swift */; };
+		84DBEDC22B6FE63300D18BA7 /* ForkPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBEDC12B6FE63300D18BA7 /* ForkPageViewController.swift */; };
+		84DBEDC62B6FE7C600D18BA7 /* OnBoardingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBEDC52B6FE7C600D18BA7 /* OnBoardingButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		84DBEDB92B6AA18900D18BA7 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		84DBEDBC2B6AA2F600D18BA7 /* MonthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthViewModel.swift; sourceTree = "<group>"; };
 		84DBEDBE2B6BF6C100D18BA7 /* DetailDayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDayViewModel.swift; sourceTree = "<group>"; };
+		84DBEDC12B6FE63300D18BA7 /* ForkPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForkPageViewController.swift; sourceTree = "<group>"; };
+		84DBEDC52B6FE7C600D18BA7 /* OnBoardingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,11 +75,11 @@
 			children = (
 				8485B7612B5B888B00AA488A /* AppDelegate.swift */,
 				8485B7632B5B888B00AA488A /* SceneDelegate.swift */,
+				84DBEDC42B6FE66500D18BA7 /* Services */,
 				84DBEDBB2B6AA1E400D18BA7 /* Day */,
 				84DBEDBA2B6AA1CD00D18BA7 /* Month */,
-				84DBEDB52B6A957200D18BA7 /* OnBoardingController.swift */,
-				8485B77C2B5EC64000AA488A /* DateBase.swift */,
-				8485B7782B5B9E7D00AA488A /* EventStoreWrapper.swift */,
+				84DBEDC02B6FE60C00D18BA7 /* OnBoarding */,
+				84DBEDC32B6FE63700D18BA7 /* ForkPage */,
 				8485B76A2B5B888D00AA488A /* Assets.xcassets */,
 				8485B76C2B5B888D00AA488A /* LaunchScreen.storyboard */,
 				8485B76F2B5B888D00AA488A /* Info.plist */,
@@ -99,6 +103,32 @@
 				84DBEDBE2B6BF6C100D18BA7 /* DetailDayViewModel.swift */,
 			);
 			path = Day;
+			sourceTree = "<group>";
+		};
+		84DBEDC02B6FE60C00D18BA7 /* OnBoarding */ = {
+			isa = PBXGroup;
+			children = (
+				84DBEDB52B6A957200D18BA7 /* OnBoardingController.swift */,
+				84DBEDC52B6FE7C600D18BA7 /* OnBoardingButton.swift */,
+			);
+			path = OnBoarding;
+			sourceTree = "<group>";
+		};
+		84DBEDC32B6FE63700D18BA7 /* ForkPage */ = {
+			isa = PBXGroup;
+			children = (
+				84DBEDC12B6FE63300D18BA7 /* ForkPageViewController.swift */,
+			);
+			path = ForkPage;
+			sourceTree = "<group>";
+		};
+		84DBEDC42B6FE66500D18BA7 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				8485B77C2B5EC64000AA488A /* DateBase.swift */,
+				8485B7782B5B9E7D00AA488A /* EventStoreWrapper.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,9 +211,11 @@
 				8485B77D2B5EC64000AA488A /* DateBase.swift in Sources */,
 				84DBEDBD2B6AA2F600D18BA7 /* MonthViewModel.swift in Sources */,
 				8485B7662B5B888B00AA488A /* DetailedDayViewController.swift in Sources */,
+				84DBEDC22B6FE63300D18BA7 /* ForkPageViewController.swift in Sources */,
 				8485B7622B5B888B00AA488A /* AppDelegate.swift in Sources */,
 				84DBEDB62B6A957200D18BA7 /* OnBoardingController.swift in Sources */,
 				8485B77B2B5EBEA600AA488A /* MonthViewController.swift in Sources */,
+				84DBEDC62B6FE7C600D18BA7 /* OnBoardingButton.swift in Sources */,
 				8485B7792B5B9E7D00AA488A /* EventStoreWrapper.swift in Sources */,
 				84DBEDBF2B6BF6C100D18BA7 /* DetailDayViewModel.swift in Sources */,
 				8485B7642B5B888B00AA488A /* SceneDelegate.swift in Sources */,

@@ -9,7 +9,21 @@ import UIKit
 
 final class OnBoardingController: UIPageViewController {
     
-    private let bottomPageControlOffset: CGFloat = 50
+    private let spacing: CGFloat = 20
+    
+    private let buttonHeight: CGFloat = 60
+    
+    private let centerOffset: CGFloat = 60
+    
+    private let bottomSpacing: CGFloat = 86
+    
+  //  private let bottomPageControlOffset: CGFloat = 135
+    
+    private let ButtonTitle: String = "Example text"
+    
+    private let firstControllerTitle: String = "First controller title"
+    
+    private let lastControllerTitle: String = "Last controller title"
     
     private lazy var firstPageController = {
         let controller = UIViewController()
@@ -56,6 +70,10 @@ final class OnBoardingController: UIPageViewController {
         
         setupPageControl()
     }
+    
+    @objc private func buttonPressed() {
+        print("Button pressed")
+    }
 }
 
 extension OnBoardingController: UIPageViewControllerDataSource {
@@ -99,11 +117,52 @@ extension OnBoardingController: UIPageViewControllerDelegate {
 private extension OnBoardingController {
     
     func setupControllers() {
+        setupPageControl()
         
+        addTitle(firstControllerTitle, to: firstPageController.view)
+        addButton(to: firstPageController.view)
+        
+        addTitle(lastControllerTitle, to: lastPageController.view)
+        addButton(to: lastPageController.view)
+    }
+    
+    func addTitle(_ title: String, to view: UIView) {
+        let lable = UILabel()
+        lable.numberOfLines = 2
+        lable.textAlignment = .center
+        lable.textColor = .black
+        lable.text = title
+        lable.font = UIFont.systemFont(ofSize: 32, weight: .bold)
+        lable.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(lable)
+        
+        NSLayoutConstraint.activate([
+            lable.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spacing),
+            lable.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -spacing),
+            lable.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: centerOffset),
+            lable.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+    }
+    
+    func addButton(to view: UIView) {
+        let button = OnBoardingButton()
+        
+        button.setTitle(ButtonTitle, for: .normal)
+        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(button)
+        NSLayoutConstraint.activate([
+            button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spacing),
+            button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -spacing),
+            button.heightAnchor.constraint(equalToConstant: buttonHeight),
+            button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -spacing)
+        ])
     }
     
     func setupPageControl() {
         view.addSubview(pageControl)
+        
+        let bottomPageControlOffset = buttonHeight + spacing * 2
         
         NSLayoutConstraint.activate([
             pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
