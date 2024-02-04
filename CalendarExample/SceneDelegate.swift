@@ -19,6 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let rootVC = MonthViewController(viewModel: MonthViewModel())
         //MonthViewController()
         //DetailedDayViewController()
+        //OnBoardingController()
         let navigationController = UINavigationController(rootViewController: rootVC)
         
         let appearance = UINavigationBarAppearance()
@@ -29,7 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         navigationBar.standardAppearance = appearance
         navigationBar.scrollEdgeAppearance = appearance
         
-        window.rootViewController = navigationController
+        window.rootViewController = OnBoardingController()
         self.window = window
         window.makeKeyAndVisible()
     }

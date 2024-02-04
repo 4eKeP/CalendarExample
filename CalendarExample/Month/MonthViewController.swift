@@ -57,7 +57,7 @@ final class MonthViewController: UIViewController {
                     calendarView.overrideUserInterfaceStyle = .light
                     view.backgroundColor = .white
                 @unknown default:
-                    assertionFailure("Неизвесный стиль интерфейса")
+                    assertionFailure("Unknown interface style")
                 }
     }
     
