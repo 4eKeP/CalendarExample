@@ -16,8 +16,6 @@ protocol MonthViewModelProtocol {
     
     func getDatesToUpdate() -> [DateComponents]
     
-    func requestAccessToCalendar()
-    
     func selectedDate(date: Date)
     
     func deleteDatesToUpdate()
@@ -45,29 +43,6 @@ final class MonthViewModel: MonthViewModelProtocol {
         dateBase.delegate = self
     }
     
-    func requestAccessToCalendar() {
-        
-        let complitionHandler: EKEventStoreRequestAccessCompletionHandler = {
-            [weak self] granted, error in
-            // почему то complition handler не запускаеться на главном потоке автоматически
-            DispatchQueue.main.async {
-                guard let self = self else { return }
-                self.initializeStore()
-            }
-        }
-        
-        if #available(iOS 17.0, *) {
-            eventStore.requestFullAccessToEvents(completion: complitionHandler)
-        } else {
-            eventStore.requestAccess(to: .event, completion: complitionHandler)
-        }
-        
-    }
-    
-    private func initializeStore() {
-        eventStore = EKEventStore()
-    }
-    
     @objc func storeChanged(_ notification: Notification) {
         OnChange?()
     }
@@ -93,9 +68,10 @@ final class MonthViewModel: MonthViewModelProtocol {
     }
 }
 
+//MARK: - DateBaseDelegate
+
 extension MonthViewModel: DateBaseDelegate {
     func dateBaseUpdate(datesToUpdate: Set<DateComponents>) {
-        print("resiv dates from base")
         self.datesToUpdate = datesToUpdate
     }
 }

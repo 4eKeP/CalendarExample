@@ -21,6 +21,8 @@ final class DateBase {
     
     private var selectedDate = Date()
     
+    private let newEventTitle = "Новое событие"
+    
     weak var delegate: DateBaseDelegate?
     
     var OnChange: (()->Void)?
@@ -33,7 +35,7 @@ final class DateBase {
     
     public static let shared = DateBase()
     
-    private var eventStore = EKEventStore()
+    var eventStore = EKEventStore()
     
     func eventsAt(date: DateComponents) -> Bool {
         let calendar = Calendar.autoupdatingCurrent
@@ -98,8 +100,19 @@ final class DateBase {
         return arrayOfDates
     }
     
-    func cancelButtonPressed() {
+    func createNewEvent(at date: Date, calendar: Calendar) -> EKEvent {
+        let newEvent = EKEvent(eventStore: eventStore)
+        newEvent.calendar = eventStore.defaultCalendarForNewEvents
         
+        var components = DateComponents()
+        components.hour = 1
+        let endDate = calendar.date(byAdding: components, to: date)
+        
+        newEvent.startDate = date
+        newEvent.endDate = endDate
+        newEvent.title = newEventTitle
+        
+        return newEvent
     }
     
     func deleteDatesToUpdate() {

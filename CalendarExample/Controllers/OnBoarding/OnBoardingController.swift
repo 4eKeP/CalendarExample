@@ -9,34 +9,48 @@ import UIKit
 
 final class OnBoardingController: UIPageViewController {
     
-    private let spacing: CGFloat = 20
+    private let spacing = Constants.OnBoardingConstants.spacing
     
-    private let buttonHeight: CGFloat = 60
+    private let buttonHeight = Constants.OnBoardingConstants.buttonHeight
     
-    private let centerOffset: CGFloat = 60
+    private let centerOffset = Constants.OnBoardingConstants.centerOffset
     
-    private let bottomSpacing: CGFloat = 86
+    private let bottomSpacing = Constants.OnBoardingConstants.bottomSpacing
     
-  //  private let bottomPageControlOffset: CGFloat = 135
+    private let buttonTitle = Constants.OnBoardingConstants.buttonTitle
     
-    private let ButtonTitle: String = "Example text"
+    private let controller1Title = Constants.OnBoardingConstants.controller1Title
     
-    private let firstControllerTitle: String = "First controller title"
+    private let controller2Title = Constants.OnBoardingConstants.controller2Title
     
-    private let lastControllerTitle: String = "Last controller title"
+    private let controller3Title = Constants.OnBoardingConstants.controller3Title
     
-    private lazy var firstPageController = {
+    private let page1Image = Constants.OnBoardingConstants.page1Image
+    
+    private let page2Image = Constants.OnBoardingConstants.page2Image
+    
+    private let page3Image = Constants.OnBoardingConstants.page3Image
+    
+    private lazy var page1Controller = {
         let controller = UIViewController()
-        controller.view.backgroundColor = .red
+        controller.view.backgroundColor = .clear
         return controller
     }()
-    private lazy var lastPageController = {
+    
+    private lazy var page2Controller = {
         let controller = UIViewController()
-        controller.view.backgroundColor = .blue
+        
+        controller.view.backgroundColor = .clear
         return controller
     }()
     
-    private lazy var pages: [UIViewController] = [firstPageController, lastPageController]
+    private lazy var page3Controller = {
+        let controller = UIViewController()
+        controller.view.backgroundColor = .clear
+        return controller
+    }()
+    
+    private lazy var pages: [UIViewController] = [page1Controller,page2Controller, page3Controller]
     
     private lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
@@ -48,6 +62,7 @@ final class OnBoardingController: UIPageViewController {
         return pageControl
     }()
     
+    //MARK: - init
     
     override init(transitionStyle style: UIPageViewController.TransitionStyle, navigationOrientation: UIPageViewController.NavigationOrientation, options: [UIPageViewController.OptionsKey : Any]? = nil) {
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal)
@@ -56,6 +71,8 @@ final class OnBoardingController: UIPageViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    //MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,9 +89,17 @@ final class OnBoardingController: UIPageViewController {
     }
     
     @objc private func buttonPressed() {
-        print("Button pressed")
+        let scenes = UIApplication.shared.connectedScenes
+        guard let windowScene = scenes.first as? UIWindowScene,
+              let window = windowScene.windows.first
+        else { return assertionFailure("Faild to get window in OnBoardingController") }
+        let viewController = ForkPageViewController()
+        UserDefaults.standard.isOnBoarded = true
+        window.rootViewController = viewController
     }
 }
+
+//MARK: - UIPageViewControllerDataSource
 
 extension OnBoardingController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -100,9 +125,9 @@ extension OnBoardingController: UIPageViewControllerDataSource {
         
         return pages[nextIndex]
     }
-    
-    
 }
+
+//MARK: - UIPageViewControllerDelegate
 
 extension OnBoardingController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
@@ -114,25 +139,45 @@ extension OnBoardingController: UIPageViewControllerDelegate {
     }
 }
 
+//MARK: - make UI
+
 private extension OnBoardingController {
     
     func setupControllers() {
         setupPageControl()
+        addBackgroundImage(page1Image, to: page1Controller.view)
+        addTitle(controller1Title, to: page1Controller.view)
         
-        addTitle(firstControllerTitle, to: firstPageController.view)
-        addButton(to: firstPageController.view)
+        addBackgroundImage(page2Image, to: page2Controller.view)
+        addTitle(controller2Title, to: page2Controller.view)
         
-        addTitle(lastControllerTitle, to: lastPageController.view)
-        addButton(to: lastPageController.view)
+        addBackgroundImage(page3Image, to: page3Controller.view)
+        addTitle(controller3Title, to: page3Controller.view)
+        addButton(to: page3Controller.view)
+    }
+    
+    func addBackgroundImage(_ image: UIImage?, to view: UIView) {
+        let imageView = UIImageView()
+        
+        imageView.image = image
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(imageView)
+        
+        NSLayoutConstraint.activate([
+            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            imageView.topAnchor.constraint(equalTo: view.topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
     
     func addTitle(_ title: String, to view: UIView) {
         let lable = UILabel()
-        lable.numberOfLines = 2
+        lable.numberOfLines = 4
         lable.textAlignment = .center
         lable.textColor = .black
         lable.text = title
-        lable.font = UIFont.systemFont(ofSize: 32, weight: .bold)
+        lable.font = UIFont.systemFont(ofSize: 25, weight: .bold)
         lable.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(lable)
         
@@ -147,7 +192,7 @@ private extension OnBoardingController {
     func addButton(to view: UIView) {
         let button = OnBoardingButton()
         
-        button.setTitle(ButtonTitle, for: .normal)
+        button.setTitle(buttonTitle, for: .normal)
         button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(button)
@@ -155,14 +200,14 @@ private extension OnBoardingController {
             button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: spacing),
             button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -spacing),
             button.heightAnchor.constraint(equalToConstant: buttonHeight),
-            button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -spacing)
+            button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -buttonHeight)
         ])
     }
     
     func setupPageControl() {
         view.addSubview(pageControl)
         
-        let bottomPageControlOffset = buttonHeight + spacing * 2
+        let bottomPageControlOffset = buttonHeight * 2 + spacing
         
         NSLayoutConstraint.activate([
             pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
