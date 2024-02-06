@@ -17,18 +17,10 @@ protocol DetailedDayViewControllerDelegate: AnyObject {
 final class DetailedDayViewController: DayViewController {
     
     private var datesToUpdate = Set<DateComponents>()
-
-    private var eventStore = EKEventStore()
     
-    private let dateBase = DateBase.shared
-    
-    private let calendarTitle = "Calendar"
-    
-    private let newEventTitle = "New event"
+    private let calendarTitle = Constants.DetailedDayConstants.calendarTitle
     
     private var viewModel: DetailDayViewModelProtocol
-    
-    weak var detailDelegate: DetailedDayViewControllerDelegate?
     
     
     init(viewModel: DetailDayViewModelProtocol) {
@@ -48,27 +40,16 @@ final class DetailedDayViewController: DayViewController {
         
         setupUI()
         
-        requestAccessToCalendar()
-        
         subscribeToNotifications()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-      //  navigationController?.setToolbarHidden(true, animated: false)
-        move(to: dateBase.getSelectedDate())
+        move(to: viewModel.dateBase.getSelectedDate())
     }
     
     @objc func cancelButtonPressed() {
-        
-//        var arrayOfDateComponents: [DateComponents] = []
-//        let arrayOfDates = Array(datesToUpdate)
-//        arrayOfDates.forEach { date in
-//            arrayOfDateComponents.append(Calendar.autoupdatingCurrent.dateComponents([.year, .month, .day], from: date))
-//        }
         viewModel.cancelButtonPress()
-   //     detailDelegate?.detailedDayViewController(self, withDates: Array(datesToUpdate))
-        
         dismiss(animated: true)
     }
     
@@ -77,35 +58,14 @@ final class DetailedDayViewController: DayViewController {
 
         
     override func eventsForDate(_ date: Date) -> [EventDescriptor] {
-        let startDate = date
-        
-        var oneDayComponents = DateComponents()
-        oneDayComponents.day = 1
-        
-        let endDate = calendar.date(byAdding: oneDayComponents, to: startDate)!
-        
-        let predicate = eventStore.predicateForEvents(withStart: startDate,
-                                                  end: endDate,
-                                                  calendars: nil) // ищет во всех календарях
-        
-        let eventKitEvents = eventStore.events(matching: predicate)
-        
-        
-        let calendarKitEvents = eventKitEvents.map(EventStoreWrapper.init)
-        
-        return calendarKitEvents
-        
+        viewModel.eventsForDate(date, calendar: calendar)
     }
         
     //MARK: - DayViewDelegate
     
     override func dayView(dayView: DayView, didTapTimelineAt date: Date) {
         endEventEditing()
-        
-      //  datesToUpdate.insert(Calendar.autoupdatingCurrent.dateComponents([.year, .month, .day], from: date))
-        
-        dateBase.addDateToUpdate(date: date)
-        print(dateBase.getDatesToUpdate())
+        viewModel.addDateToUpdate(date: date)
     }
     
     override func dayViewDidBeginDragging(dayView: DayView) {
@@ -114,7 +74,7 @@ final class DetailedDayViewController: DayViewController {
     
     override func dayView(dayView: DayView, didLongPressTimelineAt date: Date) {
         endEventEditing()
-        dateBase.addDateToUpdate(date: date)
+        viewModel.addDateToUpdate(date: date)
         let newEventStoreWrapper = createNewEvent(at: date)
         create(event: newEventStoreWrapper, animated: true)
     }
@@ -135,7 +95,7 @@ final class DetailedDayViewController: DayViewController {
             if originalEvent === editingEvent {
                 presentEditingViewForEvent(editingEvent.event)
             } else {
-                try! eventStore.save(editingEvent.event, span: .thisEvent)
+                try! viewModel.dateBase.eventStore.save(editingEvent.event, span: .thisEvent)
             }
         }
         reloadData()
@@ -156,7 +116,7 @@ final class DetailedDayViewController: DayViewController {
         eventController.allowsCalendarPreview = true
         eventController.allowsEditing  = true
         eventController.delegate = self
-        dateBase.addDateToUpdate(date: ekEvent.startDate)
+        viewModel.addDateToUpdate(date: ekEvent.startDate)
         navigationController?.pushViewController(eventController, animated: true)
     }
     
@@ -164,28 +124,14 @@ final class DetailedDayViewController: DayViewController {
 
     
     private func createNewEvent(at date: Date) -> EventStoreWrapper {
-        let newEvent = EKEvent(eventStore: eventStore)
-        newEvent.calendar = eventStore.defaultCalendarForNewEvents
-        
-        var components = DateComponents()
-        components.hour = 1
-        let endDate = calendar.date(byAdding: components, to: date)
-        
-        newEvent.startDate = date
-        newEvent.endDate = endDate
-        newEvent.title = newEventTitle
-        
-        let newESWrapepr = EventStoreWrapper(EKEvent: newEvent)
-        newESWrapepr.editedEvent = newESWrapepr
-        return newESWrapepr
+        viewModel.createNewEvent(at: date, calendar: calendar)
     }
     
     
     private func presentEditingViewForEvent(_ ekEvent: EKEvent) {
-        print("pfltqcndjdfy push")
         let eventEditViewController = EKEventEditViewController()
         eventEditViewController.event = ekEvent
-        eventEditViewController.eventStore = eventStore
+        eventEditViewController.eventStore = viewModel.dateBase.eventStore
         eventEditViewController.editViewDelegate = self
         
         present(eventEditViewController, animated: true)
@@ -196,35 +142,11 @@ final class DetailedDayViewController: DayViewController {
 //MARK: - Access request to Events
 
 private extension DetailedDayViewController {
-    
-    func requestAccessToCalendar() {
-        let complitionHandler: EKEventStoreRequestAccessCompletionHandler = {
-            [weak self] granted, error in
-            // почему то complition handler не запускаеться на главном потоке автоматически
-            DispatchQueue.main.async {
-                guard let self = self else { return }
-                self.initializeStore()
-                self.subscribeToNotifications()
-                self.reloadData()
-            }
-        }
-        
-        if #available(iOS 17.0, *) {
-            eventStore.requestFullAccessToEvents(completion: complitionHandler)
-        } else {
-            eventStore.requestAccess(to: .event, completion: complitionHandler)
-        }
-    }
-    
     func subscribeToNotifications() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(storeChanged(_:)),
                                                name: .EKEventStoreChanged,
-                                               object: eventStore)
-    }
-    
-    func initializeStore() {
-        eventStore = EKEventStore()
+                                               object: viewModel.dateBase.eventStore)
     }
     
     @objc func storeChanged(_ notification: Notification) {
