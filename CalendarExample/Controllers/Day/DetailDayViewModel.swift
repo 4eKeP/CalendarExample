@@ -60,16 +60,6 @@ final class DetailDayViewModel: DetailDayViewModelProtocol {
     }
     
     func createNewEvent(at date: Date, calendar: Calendar) -> EventStoreWrapper {
-//        let newEvent = EKEvent(eventStore: eventStore)
-//        newEvent.calendar = eventStore.defaultCalendarForNewEvents
-        
-//        var components = DateComponents()
-//        components.hour = 1
-//        let endDate = calendar.date(byAdding: components, to: date)
-//        
-//        newEvent.startDate = date
-//        newEvent.endDate = endDate
-//        newEvent.title = newEventTitle
         
         let newEvent = dateBase.createNewEvent(at: date, calendar: calendar)
         

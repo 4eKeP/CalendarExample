@@ -59,6 +59,7 @@ final class DateBase {
         
         let eventKitEvents = eventStore.events(matching: predicate)
         
+        
         return !eventKitEvents.isEmpty ? true : false
     }
     
@@ -91,12 +92,10 @@ final class DateBase {
     func addDateToUpdate(date: Date) {
         let dateComponentsFromDate = Calendar.autoupdatingCurrent.dateComponents([.year, .month, .day], from: date)
         datesToUpdate.insert(dateComponentsFromDate)
-        print("set of dates \(datesToUpdate)")
     }
     
     func getDatesToUpdate() -> [DateComponents] {
         let arrayOfDates = Array(datesToUpdate)
-        print("array dates was called \(arrayOfDates)")
         return arrayOfDates
     }
     
