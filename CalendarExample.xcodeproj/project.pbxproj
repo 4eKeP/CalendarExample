@@ -16,6 +16,8 @@
 		8485B7792B5B9E7D00AA488A /* EventStoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485B7782B5B9E7D00AA488A /* EventStoreWrapper.swift */; };
 		8485B77B2B5EBEA600AA488A /* MonthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485B77A2B5EBEA600AA488A /* MonthViewController.swift */; };
 		8485B77D2B5EC64000AA488A /* DateBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485B77C2B5EC64000AA488A /* DateBase.swift */; };
+		84A4CA8E2B7B57A500073764 /* NotificationControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4CA8D2B7B57A500073764 /* NotificationControl.swift */; };
+		84A4CA902B7B842700073764 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4CA8F2B7B842700073764 /* Array+Extension.swift */; };
 		84DBEDB62B6A957200D18BA7 /* OnBoardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBEDB52B6A957200D18BA7 /* OnBoardingController.swift */; };
 		84DBEDBD2B6AA2F600D18BA7 /* MonthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBEDBC2B6AA2F600D18BA7 /* MonthViewModel.swift */; };
 		84DBEDBF2B6BF6C100D18BA7 /* DetailDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBEDBE2B6BF6C100D18BA7 /* DetailDayViewModel.swift */; };
@@ -38,6 +40,8 @@
 		8485B7782B5B9E7D00AA488A /* EventStoreWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStoreWrapper.swift; sourceTree = "<group>"; };
 		8485B77A2B5EBEA600AA488A /* MonthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthViewController.swift; sourceTree = "<group>"; };
 		8485B77C2B5EC64000AA488A /* DateBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateBase.swift; sourceTree = "<group>"; };
+		84A4CA8D2B7B57A500073764 /* NotificationControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationControl.swift; sourceTree = "<group>"; };
+		84A4CA8F2B7B842700073764 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		84DBEDB52B6A957200D18BA7 /* OnBoardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingController.swift; sourceTree = "<group>"; };
 		84DBEDB92B6AA18900D18BA7 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		84DBEDBC2B6AA2F600D18BA7 /* MonthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthViewModel.swift; sourceTree = "<group>"; };
@@ -134,6 +138,7 @@
 			children = (
 				8485B77C2B5EC64000AA488A /* DateBase.swift */,
 				8485B7782B5B9E7D00AA488A /* EventStoreWrapper.swift */,
+				84A4CA8D2B7B57A500073764 /* NotificationControl.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -143,6 +148,7 @@
 			children = (
 				84DBEDCB2B72865C00D18BA7 /* UIBlockingProgressHUD.swift */,
 				84DBEDCD2B72897300D18BA7 /* UserDefaults+Extension.swift */,
+				84A4CA8F2B7B842700073764 /* Array+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -238,11 +244,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8485B77D2B5EC64000AA488A /* DateBase.swift in Sources */,
+				84A4CA8E2B7B57A500073764 /* NotificationControl.swift in Sources */,
 				84DBEDBD2B6AA2F600D18BA7 /* MonthViewModel.swift in Sources */,
 				8485B7662B5B888B00AA488A /* DetailedDayViewController.swift in Sources */,
 				84DBEDC22B6FE63300D18BA7 /* ForkPageViewController.swift in Sources */,
 				8485B7622B5B888B00AA488A /* AppDelegate.swift in Sources */,
 				84DBEDB62B6A957200D18BA7 /* OnBoardingController.swift in Sources */,
+				84A4CA902B7B842700073764 /* Array+Extension.swift in Sources */,
 				8485B77B2B5EBEA600AA488A /* MonthViewController.swift in Sources */,
 				84DBEDC62B6FE7C600D18BA7 /* OnBoardingButton.swift in Sources */,
 				8485B7792B5B9E7D00AA488A /* EventStoreWrapper.swift in Sources */,

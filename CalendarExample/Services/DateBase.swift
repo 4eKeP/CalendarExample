@@ -58,7 +58,10 @@ final class DateBase {
                                                   calendars: nil) // ищет во всех календарях
         
         let eventKitEvents = eventStore.events(matching: predicate)
-        
+        //        eventKitEvents[0].hasAlarms
+         //       eventKitEvents[0].addAlarm(EKAlarm)
+        //        eventKitEvents[0].removeAlarm(EKAlarm)
+        //        eventKitEvents[0].
         
         return !eventKitEvents.isEmpty ? true : false
     }

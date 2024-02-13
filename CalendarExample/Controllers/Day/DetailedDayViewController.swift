@@ -111,6 +111,7 @@ final class DetailedDayViewController: DayViewController {
     }
     
     private func presentDetailViewForEvent(_ ekEvent: EKEvent) {
+        print("presentDetailViewForEvent")
         let eventController = EKEventViewController()
         eventController.event = ekEvent
         eventController.allowsCalendarPreview = true
@@ -129,6 +130,7 @@ final class DetailedDayViewController: DayViewController {
     
     
     private func presentEditingViewForEvent(_ ekEvent: EKEvent) {
+        print("presentEditingViewForEvent")
         let eventEditViewController = EKEventEditViewController()
         eventEditViewController.event = ekEvent
         eventEditViewController.eventStore = viewModel.dateBase.eventStore
@@ -159,6 +161,17 @@ private extension DetailedDayViewController {
 
 extension DetailedDayViewController: EKEventEditViewDelegate {
     func eventEditViewController(_ controller: EKEventEditViewController, didCompleteWith action: EKEventEditViewAction) {
+//        switch action {
+//        case .canceled:
+//            print("canceled")
+//        case .saved:
+//            print("saved")
+//        case .deleted:
+//            print("deleted")
+//        case .cancelled:
+//            print("cancelled")
+//        }
+        print("editEvent")
         endEventEditing()
         reloadData()
         controller.dismiss(animated: true)
@@ -167,6 +180,7 @@ extension DetailedDayViewController: EKEventEditViewDelegate {
 
 extension DetailedDayViewController: EKEventViewDelegate {
     func eventViewController(_ controller: EKEventViewController, didCompleteWith action: EKEventViewAction) {
+        print("justEvent")
         endEventEditing()
         reloadData()
         dismiss(animated: true)
