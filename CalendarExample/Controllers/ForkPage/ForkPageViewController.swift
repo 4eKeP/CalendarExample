@@ -8,6 +8,7 @@
 import UIKit
 import EventKit
 import EventKitUI
+import UserNotifications
 
 final class ForkPageViewController: UIViewController {
     
@@ -25,9 +26,13 @@ final class ForkPageViewController: UIViewController {
     
     private let logoSide = Constants.ForkPageConstants.logoSide
     
-    private let errorTitle = Constants.ForkPageConstants.errorTitle
+    private let errorTitleEvents = Constants.ForkPageConstants.errorTitleEvents
     
-    private let errorMessage = Constants.ForkPageConstants.errorMessage
+    private let errorMessageEvents = Constants.ForkPageConstants.errorMessageEvents
+    
+    private let errorTitleNotifications = Constants.ForkPageConstants.errorTitleNotifications
+    
+    private let errorMessageNotifications = Constants.ForkPageConstants.errorMessageNotifications
     
     private let errorButtonTitle = Constants.ForkPageConstants.errorButtonTitle
     
@@ -59,7 +64,7 @@ final class ForkPageViewController: UIViewController {
     }
     
    private func chekAccessStatus() {
-       let completionHandler: EKEventStoreRequestAccessCompletionHandler = {
+       let completionHandlerForEvents: EKEventStoreRequestAccessCompletionHandler = {
            [weak self] granted, error in
            // почему то complition handler не запускаеться на главном потоке автоматически
            switch granted {
@@ -73,17 +78,22 @@ final class ForkPageViewController: UIViewController {
                DispatchQueue.main.async {
                    guard let self = self else { return }
                    UIBlockingProgressHUD.dismiss()
-                   self.showErrorAlert(message: self.errorMessage, buttonTitle: self.errorButtonTitle, completion: self.chekAccessStatus)
+                   self.showErrorAlert(message: self.errorMessageEvents, buttonTitle: self.errorButtonTitle, completion: self.chekAccessStatus)
                }
            }
        }
-       askAccessToEvents(completion: completionHandler)
+       
+       let completionHandlerForNotifications: ()-> Void = {
+           self.askAccessToEvents(completion: completionHandlerForEvents)
+       }
+        
+       askAccessToNotifications(complition: completionHandlerForNotifications)
        
        UIBlockingProgressHUD.dismiss()
     }
     
     private func showErrorAlert(message: String, buttonTitle: String, completion: @escaping () -> Void) {
-        let alert = UIAlertController(title: errorTitle, message: message, preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: errorTitleEvents, message: message, preferredStyle: UIAlertController.Style.alert)
         
         alert.addAction(UIAlertAction(title: buttonTitle, style: UIAlertAction.Style.default, handler: nil))
         
@@ -95,6 +105,25 @@ final class ForkPageViewController: UIViewController {
             dateBase.eventStore.requestFullAccessToEvents(completion: completion)
         } else {
             dateBase.eventStore.requestAccess(to: .event, completion: completion)
+        }
+    }
+    
+    private func askAccessToNotifications(complition: @escaping () -> Void) {
+        UIBlockingProgressHUD.dismiss()
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            if settings.alertSetting == .disabled && settings.soundSetting == .disabled {
+                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { success, error in
+                    if success {
+                        UIBlockingProgressHUD.show()
+                        complition()
+                    } else {
+                        UIBlockingProgressHUD.show()
+                        self.showErrorAlert(message: self.errorMessageNotifications, buttonTitle: self.errorButtonTitle, completion: self.chekAccessStatus)
+                    }
+                }
+            } else {
+                complition()
+            }
         }
     }
     

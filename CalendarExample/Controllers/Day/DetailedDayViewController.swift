@@ -152,6 +152,7 @@ private extension DetailedDayViewController {
     }
     
     @objc func storeChanged(_ notification: Notification) {
+        //следить за изменением стора что бы добавить новые эвенты
         reloadData()
     }
     
@@ -180,6 +181,16 @@ extension DetailedDayViewController: EKEventEditViewDelegate {
 
 extension DetailedDayViewController: EKEventViewDelegate {
     func eventViewController(_ controller: EKEventViewController, didCompleteWith action: EKEventViewAction) {
+        switch action {
+        case .done:
+            print("done")
+        case .responded:
+            print("responded")
+        case .deleted:
+            print("deleted")
+        @unknown default:
+            print("unknown")
+        }
         print("justEvent")
         endEventEditing()
         reloadData()
