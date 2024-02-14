@@ -19,6 +19,8 @@ final class DateBase {
         case event, none
     }
     
+    public static let shared = DateBase()
+    
     private var selectedDate = Date()
     
     private let newEventTitle = "Новое событие"
@@ -33,7 +35,7 @@ final class DateBase {
         }
     }
     
-    public static let shared = DateBase()
+    private var oldEventOnEditing: EKEvent? = nil
     
     var eventStore = EKEventStore()
     
@@ -71,6 +73,21 @@ final class DateBase {
             return EventType.event
         }
         return EventType.none
+    }
+
+    func setOldEventOnEdit(event: EKEvent) {
+        self.oldEventOnEditing = event
+    }
+    
+    func getOldEventOnEdit() -> EKEvent? {
+        return oldEventOnEditing
+    }
+    
+    func getNewEventFromOldOnEditFromDB() -> EKEvent? {
+        guard let eventIdentifier = oldEventOnEditing?.eventIdentifier, let newEvent = eventStore.event(withIdentifier: eventIdentifier) else {
+            return nil
+        }
+        return newEvent
     }
     
     func eventOnCalendar(date: DateComponents) -> UICalendarView.Decoration? {

@@ -1,5 +1,5 @@
 //
-//  AlarmControl.swift
+//  NotificationControl.swift
 //  CalendarExample
 //
 //  Created by admin on 13.02.2024.
@@ -9,25 +9,11 @@ import Foundation
 import EventKit
 import UserNotifications
 
-final class AlarmControl {
-    // функция для добавления alarm для эвента и его убиранием, и получение самого эвента
-    // добавить сравнение списков алярмов что бы не добавлять повторно 
-   // if hasAlarm не добавлять алярм
-        
+final class NotificationControl {
     func addNotificationFirstTime(event: EKEvent) {
-        guard let noAlarms = event.alarms?.isEmpty else { return assertionFailure("Failed to receive isEmpty from alarms")}
         if event.hasAlarms {
             event.alarms?.forEach{
                 addNotification(event: event, alarm: $0)
-//                let content = addContent(event: event)
-//                
-//                guard let safeAbsoluteDate = $0.absoluteDate else { return }
-//                let safeDate = safeAbsoluteDate + $0.relativeOffset
-//                let trigger = addTrigger(date: safeDate, event: event)
-//                
-//                let request = addRequest(alertHash: $0.hash, content: content, trigger: trigger)
-//                
-//                UNUserNotificationCenter.current().add(request)
             }
         } else {
             return

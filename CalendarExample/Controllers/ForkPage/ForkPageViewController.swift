@@ -66,7 +66,6 @@ final class ForkPageViewController: UIViewController {
    private func chekAccessStatus() {
        let completionHandlerForEvents: EKEventStoreRequestAccessCompletionHandler = {
            [weak self] granted, error in
-           // почему то complition handler не запускаеться на главном потоке автоматически
            switch granted {
            case true:
                DispatchQueue.main.async {
