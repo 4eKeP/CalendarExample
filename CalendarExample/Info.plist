@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSUserNotificationsUsageDescription</key>
+	<string>Приложению необходим доступ к уведомления для оповещения о событиях</string>
 	<key>NSCalendarsFullAccessUsageDescription</key>
 	<string>Приложению необходим доступ к календарю для показа, добавления и удаления событий</string>
 	<key>UIApplicationSceneManifest</key>

@@ -20,12 +20,22 @@ protocol DetailDayViewModelProtocol {
     func addDateToUpdate(date: Date)
     
     func createNewEvent(at date: Date, calendar: Calendar) -> EventStoreWrapper
+    
+    func addNotificationFirstTime(event: EKEvent)
+    
+    func deleteNotifications(for event: EKEvent)
+    
+    func setOldEventOnEdit(event: EKEvent)
+    
+    func eventStoreHasChanged()
 }
 
 final class DetailDayViewModel: DetailDayViewModelProtocol {
     weak var delegate: DetailedDayViewControllerDelegate?
     
     let dateBase = DateBase.shared
+    
+    private let notificationControl = NotificationControl()
     
     func cancelButtonPress() {
         delegate?.detailedDayViewController()
@@ -66,6 +76,40 @@ final class DetailDayViewModel: DetailDayViewModelProtocol {
         let newESWrapepr = EventStoreWrapper(EKEvent: newEvent)
         newESWrapepr.editedEvent = newESWrapepr
         return newESWrapepr
+    }
+    
+    func setOldEventOnEdit(event: EKEvent) {
+        dateBase.setOldEventOnEdit(event: event)
+    }
+    
+    func getOldEventOnEdit() -> EKEvent? {
+        dateBase.getOldEventOnEdit()
+    }
+    
+    func addNotificationFirstTime(event: EKEvent) {
+        notificationControl.addNotificationFirstTime(event: event)
+    }
+    
+    func updateNotifications(oldEvent: EKEvent, newEvent: EKEvent) {
+        notificationControl.updateNotifications(oldEvent: oldEvent, newEvent: newEvent)
+    }
+    
+    func getNewEventFromOldOnEditFromDB() -> EKEvent? {
+        dateBase.getNewEventFromOldOnEditFromDB()
+    }
+    
+    func eventStoreHasChanged() {
+        if let newEvent = getNewEventFromOldOnEditFromDB(), let oldEvent = getOldEventOnEdit() {
+            updateNotifications(oldEvent: oldEvent, newEvent: newEvent)
+        }
+    }
+    
+    func deleteNotifications(for event: EKEvent) {
+        notificationControl.deleteNotifications(for: event)
+    }
+    
+    func deleteAllNotifications() {
+        notificationControl.deleteAllNotifications()
     }
     
 }

@@ -111,12 +111,14 @@ final class DetailedDayViewController: DayViewController {
     }
     
     private func presentDetailViewForEvent(_ ekEvent: EKEvent) {
+        print("presentDetailViewForEvent")
         let eventController = EKEventViewController()
         eventController.event = ekEvent
         eventController.allowsCalendarPreview = true
         eventController.allowsEditing  = true
         eventController.delegate = self
         viewModel.addDateToUpdate(date: ekEvent.startDate)
+        viewModel.setOldEventOnEdit(event: ekEvent)
         navigationController?.pushViewController(eventController, animated: true)
     }
     
@@ -129,6 +131,7 @@ final class DetailedDayViewController: DayViewController {
     
     
     private func presentEditingViewForEvent(_ ekEvent: EKEvent) {
+        print("presentEditingViewForEvent")
         let eventEditViewController = EKEventEditViewController()
         eventEditViewController.event = ekEvent
         eventEditViewController.eventStore = viewModel.dateBase.eventStore
@@ -150,6 +153,7 @@ private extension DetailedDayViewController {
     }
     
     @objc func storeChanged(_ notification: Notification) {
+        viewModel.eventStoreHasChanged()
         reloadData()
     }
     
@@ -159,16 +163,22 @@ private extension DetailedDayViewController {
 
 extension DetailedDayViewController: EKEventEditViewDelegate {
     func eventEditViewController(_ controller: EKEventEditViewController, didCompleteWith action: EKEventEditViewAction) {
+        print("editEvent")
+        guard let eventForNotifications = controller.event else { return }
         endEventEditing()
         reloadData()
+        viewModel.addNotificationFirstTime(event: eventForNotifications)
         controller.dismiss(animated: true)
     }
 }
 
 extension DetailedDayViewController: EKEventViewDelegate {
     func eventViewController(_ controller: EKEventViewController, didCompleteWith action: EKEventViewAction) {
+        guard let eventToDelete = controller.event else { return }
+        print("justEvent")
         endEventEditing()
         reloadData()
+        viewModel.deleteNotifications(for: eventToDelete)
         dismiss(animated: true)
         viewModel.cancelButtonPress()
     }
