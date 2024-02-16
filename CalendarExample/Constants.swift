@@ -14,9 +14,14 @@ enum Constants {
         
         static let logoSide: CGFloat = 100
         
-        static let errorTitle: String = "Что-то пошло не так"
+        static let errorTitleEvents: String = "Что-то пошло не так"
         
-        static let errorMessage: String = "Без полного доступа к событиям календаря функции приложения недоступны, для включения перейдите Настойки-> Конфиденциальность и безопастность-> Календари"
+        static let errorMessageEvents: String = "Без полного доступа к событиям календаря функции приложения недоступны, для включения перейдите Настойки-> Конфиденциальность и безопастность-> Календари"
+        
+        static let errorTitleNotifications: String = "Что-то пошло не так"
+        
+        static let errorMessageNotifications: String = "Без доступа к уведомлениям функции приложения недоступны, для включения перейдите Настойки-> Конфиденциальность и безопастность"
+        
         static let errorButtonTitle: String = "Ок"
     }
     
