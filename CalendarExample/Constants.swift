@@ -35,7 +35,7 @@ enum Constants {
         
         static let controller2Title: String = "Зажми на поле что бы добавить новое событие или нажми для просмотра события"
         
-        static let controller3Title: String = "Что бы Удалить нажми на Удолить событие, для редактирования на Править"
+        static let controller3Title: String = "Что бы Удалить нажми на Удалить событие, для редактирования на Править"
         
         static let page1Image = UIImage(named: "OnBoarding1")
         
