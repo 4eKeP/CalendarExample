@@ -1,0 +1,168 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "buttonTitle" : {
+      "comment" : "OnBoarding",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It's clear!"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Понятно!"
+          }
+        }
+      }
+    },
+    "calendarTitle" : {
+      "comment" : "DetailedDay",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calendar"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Календарь"
+          }
+        }
+      }
+    },
+    "controller1Title" : {
+      "comment" : "OnBoarding",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Click on the date for details"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нажми на дату чтобы узнать подробности"
+          }
+        }
+      }
+    },
+    "controller2Title" : {
+      "comment" : "OnBoarding",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hold on the field to add a new event or click to view the event"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Зажми на поле чтобы добавить новое событие или нажми для просмотра события"
+          }
+        }
+      }
+    },
+    "controller3Title" : {
+      "comment" : "OnBoarding",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To Delete, click on Delete event, to edit, click on Edit"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Чтобы Удалить нажми на Удалить событие, для редактирования на Править"
+          }
+        }
+      }
+    },
+    "errorButtonTitle" : {
+      "comment" : "ForkPage",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ok"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ок"
+          }
+        }
+      }
+    },
+    "errorMessageEvents" : {
+      "comment" : "ForkPage",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Without full access to calendar events, the application's functions are not available, to enable it, go to Settings->Privacy and Security->Calendars"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Без полного доступа к событиям календаря функции приложения недоступны, для включения перейдите Настойки-> Конфиденциальность и безопастность-> Календари"
+          }
+        }
+      }
+    },
+    "errorMessageNotifications" : {
+      "comment" : "ForkPage",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Without access to notifications, the application's functions are not available, to enable it, go to Settings->Privacy and Security"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Без доступа к уведомлениям функции приложения недоступны, для включения перейдите Настойки-> Конфиденциальность и безопастность"
+          }
+        }
+      }
+    },
+    "errorTitle" : {
+      "comment" : "ForkPage",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something went wrong"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Что-то пошло не так"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

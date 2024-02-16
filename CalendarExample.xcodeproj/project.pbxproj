@@ -18,6 +18,7 @@
 		8485B77D2B5EC64000AA488A /* DateBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8485B77C2B5EC64000AA488A /* DateBase.swift */; };
 		84A4CA8E2B7B57A500073764 /* NotificationControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4CA8D2B7B57A500073764 /* NotificationControl.swift */; };
 		84A4CA902B7B842700073764 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4CA8F2B7B842700073764 /* Array+Extension.swift */; };
+		84A4CA9B2B7F8B5900073764 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 84A4CA9A2B7F8B5900073764 /* Localizable.xcstrings */; };
 		84DBEDB62B6A957200D18BA7 /* OnBoardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBEDB52B6A957200D18BA7 /* OnBoardingController.swift */; };
 		84DBEDBD2B6AA2F600D18BA7 /* MonthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBEDBC2B6AA2F600D18BA7 /* MonthViewModel.swift */; };
 		84DBEDBF2B6BF6C100D18BA7 /* DetailDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DBEDBE2B6BF6C100D18BA7 /* DetailDayViewModel.swift */; };
@@ -42,8 +43,9 @@
 		8485B77C2B5EC64000AA488A /* DateBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateBase.swift; sourceTree = "<group>"; };
 		84A4CA8D2B7B57A500073764 /* NotificationControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationControl.swift; sourceTree = "<group>"; };
 		84A4CA8F2B7B842700073764 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		84A4CA9A2B7F8B5900073764 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		84A4CA9C2B7F8BB200073764 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		84DBEDB52B6A957200D18BA7 /* OnBoardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingController.swift; sourceTree = "<group>"; };
-		84DBEDB92B6AA18900D18BA7 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		84DBEDBC2B6AA2F600D18BA7 /* MonthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthViewModel.swift; sourceTree = "<group>"; };
 		84DBEDBE2B6BF6C100D18BA7 /* DetailDayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDayViewModel.swift; sourceTree = "<group>"; };
 		84DBEDC12B6FE63300D18BA7 /* ForkPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForkPageViewController.swift; sourceTree = "<group>"; };
@@ -90,12 +92,21 @@
 				84DBEDCF2B729A4A00D18BA7 /* Controllers */,
 				84DBEDCA2B72863200D18BA7 /* Extensions */,
 				84DBEDC42B6FE66500D18BA7 /* Services */,
-				8485B76A2B5B888D00AA488A /* Assets.xcassets */,
-				84DBEDD02B72AFB700D18BA7 /* Constants.swift */,
+				84A4CA992B7F8B3200073764 /* Resources */,
 				8485B76C2B5B888D00AA488A /* LaunchScreen.storyboard */,
 				8485B76F2B5B888D00AA488A /* Info.plist */,
 			);
 			path = CalendarExample;
+			sourceTree = "<group>";
+		};
+		84A4CA992B7F8B3200073764 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8485B76A2B5B888D00AA488A /* Assets.xcassets */,
+				84DBEDD02B72AFB700D18BA7 /* Constants.swift */,
+				84A4CA9A2B7F8B5900073764 /* Localizable.xcstrings */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		84DBEDBA2B6AA1CD00D18BA7 /* Month */ = {
@@ -205,7 +216,7 @@
 			};
 			buildConfigurationList = 8485B7592B5B888B00AA488A /* Build configuration list for PBXProject "CalendarExample" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = ru;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -233,6 +244,7 @@
 			files = (
 				8485B76E2B5B888D00AA488A /* LaunchScreen.storyboard in Resources */,
 				8485B76B2B5B888D00AA488A /* Assets.xcassets in Resources */,
+				84A4CA9B2B7F8B5900073764 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,7 +281,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				8485B76D2B5B888D00AA488A /* Base */,
-				84DBEDB92B6AA18900D18BA7 /* ru */,
+				84A4CA9C2B7F8BB200073764 /* en */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
